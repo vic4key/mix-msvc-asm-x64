@@ -18,6 +18,7 @@ TXT_F2 db "I am F2() from asm code.",0
 F1 PROC
   PUSH RBP
   MOV RBP, RSP
+  SUB RSP, 40
   LEA RCX, TXT_F1
   CALL puts
   LEAVE
@@ -27,6 +28,7 @@ F1 ENDP
 F2 PROC
   PUSH RBP
   MOV RBP, RSP
+  SUB RSP, 40
   LEA RCX, TXT_F2
   CALL puts
   LEAVE
