@@ -14,15 +14,13 @@
 
 ; Exportation
 PUBLIC F1
-PUBLIC F2
 
 ; Importation
 EXTERN puts : PROC
 
 ; Declaration
 .DATA
-TXT_F1 db "I am F1() from asm code.",0
-TXT_F2 db "I am F2() from asm code.",0
+TXT DB "I am F1() in ASM.",0
 
 ; Implementation
 .CODE
@@ -31,20 +29,22 @@ F1 PROC
   PUSH RBP
   MOV RBP, RSP
   SUB RSP, 30H
-  LEA RCX, TXT_F1
+  LEA RCX, TXT
   CALL puts
   LEAVE
   RET
 F1 ENDP
 
-F2 PROC
-  PUSH RBP
-  MOV RBP, RSP
-  SUB RSP, 30H
-  LEA RCX, TXT_F2
-  CALL puts
-  LEAVE
+fnNtGetCurrentProcessorNumber PROC
+  MOV R10, RCX
+  MOV EAX, 0ECH
+  TEST BYTE PTR [000000007FFE0308H], 1H
+  JNZ SHORT @L_00007FFA100BBC65
+  SYSCALL
   RET
-F2 ENDP
+  @L_00007FFA100BBC65:
+  INT 2EH
+  RET
+fnNtGetCurrentProcessorNumber ENDP
 
 END

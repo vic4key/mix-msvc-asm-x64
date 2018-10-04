@@ -5,11 +5,16 @@
 #include <iostream>
 
 extern "C" void F1();
-extern "C" void F2();
+extern "C" unsigned long fnNtGetCurrentProcessorNumber();
+
+void F2()
+{
+  std::cout << "I am F2() in C++." << std::endl;
+}
 
 void F3()
 {
-  std::cout << "I am F3() from cpp code." << std::endl;
+  std::cout << "I am F3() : " << fnNtGetCurrentProcessorNumber() << std::endl;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
